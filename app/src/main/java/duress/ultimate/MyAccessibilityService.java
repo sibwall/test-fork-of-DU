@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.ComponentName;
 import android.app.KeyguardManager;
 import android.os.UserManager;
+import android.os.Bundle;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.app.admin.DevicePolicyManager;
