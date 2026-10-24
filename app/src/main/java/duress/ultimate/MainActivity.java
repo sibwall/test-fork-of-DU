@@ -241,7 +241,8 @@ public class MainActivity extends Activity {
 
         int duressLen = CryptoManager.getInt(p, CryptoManager.BFU_ALIAS, DURESS_LEN, 4);
         
-        String infoText = isEn() ? "Screen lock password length after entering and submitting which phone data will be wiped: " + duressLen;
+        String infoText = isEn()
+        ? "Screen lock password length after entering and submitting which phone data will be wiped: " + duressLen
         : "Длина пароля разблокировки экрана после ввода и отправки которой происходит сброс данных телефона: " + duressLen;
 
         render(infoText);
