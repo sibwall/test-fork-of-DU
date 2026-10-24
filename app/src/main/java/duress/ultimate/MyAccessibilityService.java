@@ -24,14 +24,16 @@ public class MyAccessibilityService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        
-        CharSequence packageName = event.getPackageName();   
-		int eventType = event.getEventType();
+                
+		final CharSequence packageName = event.getPackageName();   
+		final int eventType = event.getEventType();
         
         if (eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             setWipeLimit(1);      
 			clearPasswordFields();
         }
+
+		final KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 
 		if (eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {            
             String className = String.valueOf(event.getClassName());        
