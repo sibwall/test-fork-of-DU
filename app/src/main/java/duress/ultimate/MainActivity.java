@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -31,24 +30,6 @@ public class MainActivity extends Activity {
     private TextView customInputDisplay;
     private StringBuilder currentInput = new StringBuilder();
     private boolean dialogShown = false;
-
-    private void EnableComponent() {
-        if (isComponentEnabled()) return;
-        ComponentName componentName = new ComponentName(this, MyAccessibilityService.class);
-
-        PackageManager packageManager = getPackageManager();
-        packageManager.setComponentEnabledSetting(
-                componentName,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP
-        );
-    }
-
-    private boolean isComponentEnabled() {
-        ComponentName componentName = new ComponentName(this, MyAccessibilityService.class);
-        PackageManager pm = getPackageManager();
-        return pm.getComponentEnabledSetting(componentName) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
-    }
 
     private boolean isEn() { return !Locale.getDefault().getLanguage().equals("ru"); }
 
@@ -131,8 +112,6 @@ public class MainActivity extends Activity {
             return;
         }
         
-        EnableComponent();
-
         int duressLen = CryptoManager.getInt(p, CryptoManager.BFU_ALIAS, DURESS_LEN, 4);
 
         String infoText = isEn()
