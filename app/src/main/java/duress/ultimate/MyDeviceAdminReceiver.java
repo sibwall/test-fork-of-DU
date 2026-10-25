@@ -13,50 +13,8 @@ public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
         
     @Override
     public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-        disableFRP(context);
+        super.onReceive(context, intent);        
     }
-  
-    static void disableFRP(Context context) {
-           try {
-           DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-           if (dpm==null || !dpm.isDeviceOwnerApp(context.getPackageName())) return;
-           ComponentName admin = new ComponentName(context, MyDeviceAdminReceiver.class);
-
-           if (android.os.Build.VERSION.SDK_INT >= 30) {
-                  android.app.admin.FactoryResetProtectionPolicy frpPolicy =       
-                  new android.app.admin.FactoryResetProtectionPolicy.Builder()
-                  .setFactoryResetProtectionAccounts(Collections.emptyList())        
-                  .setFactoryResetProtectionEnabled(false)
-                  .build();
-            dpm.setFactoryResetProtectionPolicy(admin, frpPolicy);
-                               
-           } else {
-                   android.os.Bundle restrictions = new android.os.Bundle();
-                   restrictions.putBoolean("disableFactoryResetProtectionAdmin", true);
-                   dpm.setApplicationRestrictions(admin, "com.google.android.gms", restrictions);
-           }
-
-           Intent intent = new Intent("com.google.android.gms.auth.FRP_CONFIG_CHANGED");
-           intent.setPackage("com.google.android.gms");
-           context.sendBroadcast(intent);
-           
-           } catch (Throwable t) {}
-   }
-
-        
-   static void is_disabled(Context context) {
-       DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-       if (dpm==null || !dpm.isDeviceOwnerApp(context.getPackageName())) return;              
-       Context c = context.getApplicationContext().createDeviceProtectedStorageContext();      
-       SharedPreferences prefs = c.getSharedPreferences("prefs", Context.MODE_PRIVATE);    
-       boolean isDisabled = prefs.getBoolean("disabled", false);   
-       if (!isDisabled) {  
-           disableFRP(context);     
-           prefs.edit().putBoolean("disabled", true).apply();   
-       } 
-   }
-
         
     @Override
     public void onEnabled(Context context, Intent intent) {         
