@@ -1,9 +1,5 @@
 package duress.ultimate;
 
-import java.util.Collections;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.content.SharedPreferences;
 import android.app.admin.DevicePolicyManager;
 import android.app.admin.DeviceAdminReceiver;
 import android.content.ComponentName;
@@ -12,16 +8,6 @@ import android.content.Intent;
 import android.widget.Toast;
 
 public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
-
-     private static final ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-    };   
     
     @Override
     public void onReceive(Context context, Intent intent) {
