@@ -34,7 +34,12 @@
 			android:screenOrientation="portrait"
 			android:resizeableActivity="false"
 			android:excludeFromRecents="true"
-			android:name=".EntryActivity"/>	
+			android:name=".EntryActivity">	
+		<intent-filter>
+			<action android:name="android.intent.action.MAIN" />
+			<category android:name="android.intent.category.LAUNCHER" />
+		</intent-filter>
+		</activity>
 
 		<activity
 			android:exported="false"			
