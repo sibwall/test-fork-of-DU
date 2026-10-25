@@ -1,34 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="duress.ultimate">
 	
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
-	<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/> 	
-	
     <application
 		android:allowBackup="false"
 		android:debuggable="false"		
-		android:manageSpaceActivity=".ZeroActivity"		
 		android:requestLegacyExternalStorage="false"
         android:fullBackupContent="false"
-		android:label="DuressUltimate"
+		android:label="DuressUltimateLite"
 		android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"       
 		android:extractNativeLibs="false"
 		android:theme="@style/NoAnimation">
-
-		<receiver 
-			android:name=".NucleusReceiver"	
-			android:exported="false"					
-			android:enabled="true"	
-			android:directBootAware="true">     	
-			<intent-filter>    
-				<action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />       
-				<action android:name="android.hardware.usb.action.USB_ACCESSORY_DETACHED" />     
-				<action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />      
-				<action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED" />   
-			</intent-filter>	   
-		</receiver>
 	
         <service
             android:name=".MyAccessibilityService"
@@ -57,62 +39,12 @@
 
 		<activity
 			android:exported="false"			
-			android:launchMode="singleInstance"
-			android:turnScreenOn="true"			
-			android:screenOrientation="portrait"
-			android:resizeableActivity="false"
-			android:excludeFromRecents="true"
-			android:name=".ProxyActivity"/>	
-
-			<activity-alias
-				android:name=".ProxyAlias"    
-				android:targetActivity=".ProxyActivity"   
-				android:enabled="true"  
-				android:exported="true">   
-				<intent-filter>    
-					<action android:name="android.intent.action.MAIN" />     
-					<category android:name="android.intent.category.LAUNCHER" />  
-				</intent-filter>	
-			</activity-alias>
-
-		    <activity-alias
-				android:name=".ProxyAlias2"    
-				android:targetActivity=".ProxyActivity"   
-				android:enabled="false" 
-				android:label="@string/app_name"
-				android:icon="@drawable/nologo"
-                android:roundIcon="@drawable/nologo"       
-				android:exported="true">   
-				<intent-filter>    
-					<action android:name="android.intent.action.MAIN" />     
-					<category android:name="android.intent.category.LAUNCHER" />  
-				</intent-filter>	
-			</activity-alias>
-
-		<activity
-			android:exported="false"			
 			android:launchMode="singleTask"
 			android:turnScreenOn="true"			
 			android:screenOrientation="portrait"
 			android:resizeableActivity="false"
 			android:excludeFromRecents="true"
-			android:name=".MainActivity"/> 
-
-		<activity
-			android:exported="true"			
-			android:launchMode="singleInstance"			
-			android:screenOrientation="portrait"
-			android:resizeableActivity="false"
-			android:excludeFromRecents="true"
-			android:name=".ZeroActivity"/>	
-
-		<activity
-			android:exported="false"			
-			android:launchMode="singleTask"
-			android:screenOrientation="portrait"
-			android:resizeableActivity="false"
-			android:excludeFromRecents="true"			
-			android:name=".CalculatorActivity"/>  		
+			android:name=".MainActivity"/> 		
 
 		<receiver		
 			android:name=".MyDeviceAdminReceiver"			
@@ -125,11 +57,14 @@
                 android:resource="@xml/device_admin" />
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-				<action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />	
-				<action android:name="android.app.action.DEVICE_OWNER_CHANGED" />
-				<action android:name="android.app.action.PROFILE_PROVISIONING_COMPLETE" />
-				<action android:name="android.accounts.LOGIN_ACCOUNTS_CHANGED" />            
-            </intent-filter>			
+				<action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />				            
+            </intent-filter>	
+			<intent-filter>
+				<action android:name="android.intent.action.MEDIA_MOUNTED" />
+				<action android:name="android.intent.action.MEDIA_READY" />
+				<action android:name="android.intent.action.MEDIA_SCANNER_STARTED" />
+				<data android:scheme="file" /> 
+            </intent-filter>
         </receiver>
 		
     </application>
