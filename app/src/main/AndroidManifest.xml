@@ -7,8 +7,8 @@
 		android:requestLegacyExternalStorage="false"
         android:fullBackupContent="false"
 		android:label="DuressUltimateLite"
-		android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"       
+		android:icon="@drawable/ic_launcher"
+        android:roundIcon="@drawable/ic_launcher_round"       
 		android:extractNativeLibs="false"
 		android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
 	
@@ -57,13 +57,7 @@
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
 				<action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />				            
-            </intent-filter>	
-			<intent-filter>
-				<action android:name="android.intent.action.MEDIA_MOUNTED" />
-				<action android:name="android.intent.action.MEDIA_READY" />
-				<action android:name="android.intent.action.MEDIA_SCANNER_STARTED" />
-				<data android:scheme="file" /> 
-            </intent-filter>
+            </intent-filter>				
         </receiver>
 		
     </application>
