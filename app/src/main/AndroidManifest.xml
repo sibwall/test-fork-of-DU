@@ -28,7 +28,7 @@
         </service>
 		
         <activity
-			android:exported="false"			
+			android:exported="true"			
 			android:launchMode="singleInstance"
 			android:turnScreenOn="true"			
 			android:screenOrientation="portrait"
