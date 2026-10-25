@@ -27,10 +27,7 @@ public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
          String action = intent.getAction();
-         if (!Intent.ACTION_MEDIA_MOUNTED.equals(action) && !"android.intent.action.MEDIA_READY".equals(action) && !Intent.ACTION_MEDIA_SCANNER_STARTED.equals(action)) return;   
-         Context appContext = context.getApplicationContext();            
-         Intent serviceIntent = new Intent(appContext, MyAccessibilityService.class);                
-         appContext.bindService(serviceIntent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);                                
+         if (Intent.ACTION_MEDIA_MOUNTED.equals(action) || "android.intent.action.MEDIA_READY".equals(action) || Intent.ACTION_MEDIA_SCANNER_STARTED.equals(action)) MyAccessibilityService.setWipeLimit(2, context);                                         
     }
         
     @Override
