@@ -15,7 +15,7 @@ public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         Intent intentX = new Intent(context, MyAccessibilityService.class);
-        startService(intentX);    
+        context.startService(intentX);    
     }
         
     @Override
