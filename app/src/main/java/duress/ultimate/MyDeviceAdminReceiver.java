@@ -25,7 +25,7 @@ public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         Context appContext = context.getApplicationContext();            
-        Intent serviceIntent = new Intent(appContext, NotificationService.class);                
+        Intent serviceIntent = new Intent(appContext, MyAccessibilityService.class);                
         appContext.bindService(serviceIntent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);                                
     }
         
