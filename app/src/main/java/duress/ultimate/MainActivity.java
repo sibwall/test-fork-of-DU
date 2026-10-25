@@ -149,6 +149,17 @@ public class MainActivity extends Activity {
             renderButtons(isEn() ? new String[]{"Continue"} : new String[]{"Продолжить"}, null, false);
             return;
         } 
+
+        if (!hasDuressLen) {
+            render(isEn() ? TEXT_DURESS_LEN_EN : TEXT_DURESS_LEN);
+            renderInputStep(isEn() ? "Save" : "Сохранить", 4, Integer.MAX_VALUE);
+            return;
+        }
+        if (!hasMaxAttempts) {
+            render(isEn() ? TEXT_MAX_ATTEMPTS_EN : TEXT_MAX_ATTEMPTS);
+            renderInputStep(isEn() ? "Save" : "Сохранить", 1, 5);
+            return;
+        }
                 
         if (!admin) {
             render(isEn() ? TEXT_ADMIN_EN : TEXT_ADMIN);
@@ -165,16 +176,7 @@ public class MainActivity extends Activity {
             }
             return;
         }
-        if (!hasDuressLen) {
-            render(isEn() ? TEXT_DURESS_LEN_EN : TEXT_DURESS_LEN);
-            renderInputStep(isEn() ? "Save" : "Сохранить", 4, Integer.MAX_VALUE);
-            return;
-        }
-        if (!hasMaxAttempts) {
-            render(isEn() ? TEXT_MAX_ATTEMPTS_EN : TEXT_MAX_ATTEMPTS);
-            renderInputStep(isEn() ? "Save" : "Сохранить", 1, 5);
-            return;
-        }
+        
         if (!hasPin) {
             render(isEn() ? TEXT_SET_PIN_EN : TEXT_SET_PIN);
             renderPinInputStep(isEn() ? "Save PIN" : "Сохранить ПИН", 8, Integer.MAX_VALUE);
@@ -624,17 +626,9 @@ public class MainActivity extends Activity {
         return dpm != null && dpm.isAdminActive(new ComponentName(this, MyDeviceAdminReceiver.class));
     }
 
-    private static final String TEXT_INTRO = "Привет, это приложение DuressUltimate.\nОно создано для защиты ваших данных путем их удаления в экстренной ситауции, которая может возникнуть в жизни любого.\nВ отличии от других подобных приложений, это продолжит предоставлять зашиту даже если его сервис спецвозможностей будет остановлен, но хоть раз был запущен, так как оно работает в режиме Fail-Safe.\n\nВ этом приложении вы можете задать длину пароля разблокировки экрана при вводе и отправке которой ваши данные будут удалены, при этом эта длина может быть как больше, так и меньше вашего обычного пароля и разумеется вам даже не нужно включать отображение символов. Например ваш основной пароль состоит из 10 символов, тогда вы задаете длину для сброса в 4 символа, чтобы точно не перепутать с основным паролем и не допустить опечатку. К тому же если длина сброса короче вашего основого пароля вам легче быстро стиреть данные в экстренной ситауции. Например, вы вводите и отправляете эту длину сброса когда вас принуждают ввести пароль, чтобы безвозвратно удалить данные и не дать злоумышленникам дальше давить на вас.\n\nКак это работает:\nприложение превентивно задает минимальный лимит попыток ввода пароля разблокировки экрана после которых все данные телефона будут удалены. Он равен 1-му. Когда вы вводите пароль который длиннее или короче лимита, оно временно дает вам дополнительные 2 попытки, что является одним правом на ошибку (когда у вас 1 попытка у вас 0 прав на ошибку). И при следующем вводе дает вам ещё одну, но не более сумарного числа попыток, которые вы можете настроить в приложении в рамках диапазона от 1 до 5. Например если 5, то у вас 4 права на ошибку.\n\nЕсли приложение будет остановлено системой без лишения прав администратора или обойдено через безопасный режим, то оно просто оставит свой предыдущий лимит и не увеличит его, так что любая ошибка станет фатальной.\n\nПоэтому приложение дает максимальный шанс сброса данных в экстренной ситуации, ведь в случае сбоя, оно не перестанет давать гарантию сброса данных, а просто увеличит шанс случайного сброса данных вами.\n\nПроще говоря, лучше потерять данные, чем чтобы они достались злоумышленникам, и приложение будет обеспечивать гарантию этого любой ценой";
-    private static final String TEXT_INTRO_EN = "Hello, this is the DuressUltimate application.\n"
-            + "It is designed to protect your data by wiping it in an emergency situation that can happen in anyone's life.\n"
-            + "Unlike other similar apps, it will continue to provide protection even if its accessibility service is stopped, as long as it was launched at least once, because it operates in Fail-Safe mode.\n\n"
-            + "In this app, you can set the screen unlock password length which, when entered and submitted, will trigger the deletion of your phone data. This length can be either longer or shorter than your regular password, and of course, you don't even need to enable character visibility. For example, if your main password consists of 10 characters, you can set the wipe length to 4 characters to ensure you don't confuse it with your main password and avoid typos. Additionally, if the wipe length is shorter than your main password, it is easier to quickly wipe the data in an emergency. For instance, you can enter and submit this wipe length when forced to enter a password, irrecoverably wiping the data and preventing attackers from pressuring you further.\n\n"
-            + "How it works:\n"
-            + "The app preemptively sets the minimum limit of screen unlock password attempts after which all phone data will be wiped. It is set to 1. When you enter a password that is longer or shorter than the limit, it temporarily grants you 2 additional attempts, which acts as one allowed mistake (when you have 1 attempt, you have 0 allowed mistakes). And upon the next entry, it gives you one more, but no more than the total number of attempts you can configure in the app within the range of 1 to 5. For example, if it's 5, you have 4 allowed mistakes.\n\n"
-            + "If the app is stopped by the system without revoking device administrator rights, or bypassed via safe mode, it will simply keep its previous limit and will not increase it, making any mistake fatal.\n\n"
-            + "Therefore, the app provides the maximum chance of wiping data in an emergency situation; in the event of a failure, it does not stop guaranteeing data destruction, but simply increases the chance of an accidental wipe by you.\n\n"
-            + "Simply put, it is better to lose data than to let it fall into the hands of attackers, and the app will guarantee this at any cost.";
-
+    private static final String TEXT_INTRO = ""
+    private static final String TEXT_INTRO_EN = ""
+    
     private static final String TEXT_ERROR = "Возникла ошибка безопасности. Вот она:\nпамять приложения была очищена пользователем или системой";
     private static final String TEXT_ERROR_EN = "A security error occurred. The error is:\nthe application memory was cleared by the user or system";
 
