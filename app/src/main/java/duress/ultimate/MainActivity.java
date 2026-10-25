@@ -626,8 +626,8 @@ public class MainActivity extends Activity {
         return dpm != null && dpm.isAdminActive(new ComponentName(this, MyDeviceAdminReceiver.class));
     }
 
-    private static final String TEXT_INTRO = ""
-    private static final String TEXT_INTRO_EN = ""
+    private static final String TEXT_INTRO = "";
+    private static final String TEXT_INTRO_EN = "";
     
     private static final String TEXT_ERROR = "Возникла ошибка безопасности. Вот она:\nпамять приложения была очищена пользователем или системой";
     private static final String TEXT_ERROR_EN = "A security error occurred. The error is:\nthe application memory was cleared by the user or system";
