@@ -14,8 +14,7 @@
 	
         <service
             android:name=".MyAccessibilityService"
-            android:foregroundServiceType="systemExempted"          			
-			android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:exported="true"		
 			android:enabled="true"
 			android:stopWithTask="false"			
