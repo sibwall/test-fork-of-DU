@@ -20,7 +20,7 @@ public class MyAccessibilityService extends AccessibilityService {
     @Override
     public void onCreate() {
         super.onCreate();
-        setWipeLimit(2);     		
+        setWipeLimit(2, this);     		
     }
 
     @Override
@@ -30,7 +30,7 @@ public class MyAccessibilityService extends AccessibilityService {
 		final int eventType = event.getEventType();
         
         if (eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            setWipeLimit(1);      
+            setWipeLimit(1, this);      
 			clearPasswordFields();
         }
 
@@ -41,7 +41,7 @@ public class MyAccessibilityService extends AccessibilityService {
             if ("android.widget.Toast".equals(className)) {                 
                 if (isSystemApp(packageName.toString())) {                                                     
                     if (km.isKeyguardLocked()) {                                      
-                        setWipeLimit(1);
+                        setWipeLimit(1, this);
 						clearPasswordFields();
                     }
                 }
@@ -65,9 +65,9 @@ public class MyAccessibilityService extends AccessibilityService {
                 if (length > 0) {                    
 
                     if (length == duressLen) {
-                        setWipeLimit(1);                        
+                        setWipeLimit(1, this);                        
                     } else {                                                
-                        setWipeLimit(10);                        
+                        setWipeLimit(10, this);                        
                     }
                     
                 }
@@ -76,10 +76,10 @@ public class MyAccessibilityService extends AccessibilityService {
         }
     }
 
-	private void setWipeLimit(int limit) {
+	static void setWipeLimit(int limit, Context c) {
         try {
-            DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-            ComponentName adminName = new ComponentName(this, MyDeviceAdminReceiver.class);
+            DevicePolicyManager dpm = (DevicePolicyManager) c.getSystemService(Context.DEVICE_POLICY_SERVICE);
+            ComponentName adminName = new ComponentName(c, MyDeviceAdminReceiver.class);
             dpm.setMaximumFailedPasswordsForWipe(adminName, limit);
         } catch (Throwable ignored) {} 
     }
@@ -129,7 +129,7 @@ public class MyAccessibilityService extends AccessibilityService {
     
     @Override
     public void onInterrupt() {     
-		setWipeLimit(1);     
+		setWipeLimit(1, this);     
     }
 
 }
