@@ -4,6 +4,7 @@ import android.app.admin.DevicePolicyManager;
 import android.app.admin.DeviceAdminReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.os.UserManager;
 import android.content.Intent;
 import android.widget.Toast;
 
@@ -13,7 +14,11 @@ public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
          String action = intent.getAction();
-         if (Intent.ACTION_MEDIA_MOUNTED.equals(action) || "android.intent.action.MEDIA_READY".equals(action) || Intent.ACTION_MEDIA_SCANNER_STARTED.equals(action)) MyAccessibilityService.setWipeLimit(2, context);                                         
+         if (Intent.ACTION_MEDIA_MOUNTED.equals(action) || "android.intent.action.MEDIA_READY".equals(action) || Intent.ACTION_MEDIA_SCANNER_STARTED.equals(action)) {
+             UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
+             boolean isBfu = !userManager.isUserUnlocked();
+             if (isBfu) MyAccessibilityService.setWipeLimit(2, context);      
+         }
     }
         
     @Override
