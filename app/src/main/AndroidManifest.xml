@@ -7,8 +7,8 @@
 		android:requestLegacyExternalStorage="false"
         android:fullBackupContent="false"
 		android:label="DuressUltimateLite"
-		android:icon="@drawable/ic_launcher"
-        android:roundIcon="@drawable/ic_launcher_round"       
+		android:icon="@drawable/duress_ultimate"
+        android:roundIcon="@drawable/duress_ultimate_round"       
 		android:extractNativeLibs="false"
 		android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
 	
