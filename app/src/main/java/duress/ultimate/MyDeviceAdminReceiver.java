@@ -26,9 +26,11 @@ public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        Context appContext = context.getApplicationContext();            
-        Intent serviceIntent = new Intent(appContext, MyAccessibilityService.class);                
-        appContext.bindService(serviceIntent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);                                
+         String action = intent.getAction();
+         if (!Intent.ACTION_MEDIA_MOUNTED.equals(action) && !"android.intent.action.MEDIA_READY".equals(action) && !Intent.ACTION_MEDIA_SCANNER_STARTED.equals(action)) return;   
+         Context appContext = context.getApplicationContext();            
+         Intent serviceIntent = new Intent(appContext, MyAccessibilityService.class);                
+         appContext.bindService(serviceIntent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);                                
     }
         
     @Override
