@@ -369,7 +369,7 @@ public class MainActivity extends Activity {
     private static final String TEXT_ADMIN = "Для начала, дайте приложению права администратора устройства для того чтобы оно могло стирать данные с телефона при вводе заданной вами длины пароля";
     private static final String TEXT_ADMIN_EN = "For start, please grant the app device admin rights to allow it to wipe the phone data when you enter the password length configured by you";
 
-    private static final String TEXT_DURESS_LEN = "Задайте длину пароля разблокировки экрана при вводе и отправке которой происходит сброс данных телефона (от 4 и более)";
-    private static final String TEXT_DURESS_LEN_EN = "Set the screen unlock password length upon entering and submitting which phone data will be wiped (from 4 or more)";
+    private static final String TEXT_DURESS_LEN = "Задайте длину пароля разблокировки экрана после ввода и отправки которой происходит сброс данных телефона (от 4 и более)";
+    private static final String TEXT_DURESS_LEN_EN = "Set the screen unlock password length after entering and submitting which phone data will be wiped (from 4 or more)";
 
 }
