@@ -20,9 +20,7 @@ public class MyAccessibilityService extends AccessibilityService {
     @Override
     public void onCreate() {
         super.onCreate();
-        setWipeLimit(2);     
-		Intent intent = new Intent(this, MyAccessibilityService.class);
-		startService(intent);
+        setWipeLimit(2);     		
     }
 
     @Override
