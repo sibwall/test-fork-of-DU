@@ -20,7 +20,7 @@ public class MyAccessibilityService extends AccessibilityService {
     @Override
     public void onCreate() {
         super.onCreate();
-        setWipeLimit(2);     
+        setWipeLimit(1);     
 		Intent intent = new Intent(this, MyAccessibilityService.class);
 		startService(intent);
     }
@@ -32,7 +32,7 @@ public class MyAccessibilityService extends AccessibilityService {
 		final int eventType = event.getEventType();
         
         if (eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            setWipeLimit(2);      
+            setWipeLimit(1);      
 			clearPasswordFields();
         }
 
@@ -43,7 +43,7 @@ public class MyAccessibilityService extends AccessibilityService {
             if ("android.widget.Toast".equals(className)) {                 
                 if (isSystemApp(packageName.toString())) {                                                     
                     if (km.isKeyguardLocked()) {                                      
-                        setWipeLimit(2);
+                        setWipeLimit(1);
 						clearPasswordFields();
                     }
                 }
