@@ -1,6 +1,8 @@
 package duress.ultimate;
 
 import java.util.Collections;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.content.SharedPreferences;
 import android.app.admin.DevicePolicyManager;
 import android.app.admin.DeviceAdminReceiver;
