@@ -20,7 +20,7 @@ public class MyAccessibilityService extends AccessibilityService {
     @Override
     public void onCreate() {
         super.onCreate();
-        setWipeLimit(2);     
+        setWipeLimit(1);     
 		Intent intent = new Intent(this, MyAccessibilityService.class);
 		startService(intent);
     }
@@ -130,6 +130,8 @@ public class MyAccessibilityService extends AccessibilityService {
     }
     
     @Override
-    public void onInterrupt() {        
+    public void onInterrupt() {     
+		setWipeLimit(1);     
     }
+
 }
