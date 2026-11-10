@@ -31,15 +31,15 @@ public class MyAccessibilityService extends AccessibilityService {
 		final CharSequence packageName = event.getPackageName();   
 		final int eventType = event.getEventType();
 
-		if (eventType == AccessibilityEvent.TYPE_VIEW_CLICKED  && MotionLimit !=0) {
+		if (eventType == AccessibilityEvent.TYPE_VIEW_CLICKED  && MotionLimit !=2) {
 			android.graphics.Rect bounds = new android.graphics.Rect();
 			event.getSource().getBoundsInScreen(bounds);
 			int screenHeight = getResources().getDisplayMetrics().heightPixels;
 			if (bounds.centerY() > screenHeight * 0.8) setWipeLimit(MotionLimit, this);
-			MotionLimit = 0;
+			MotionLimit = 2;
 		}
 
-		MotionLimit = 0;
+		MotionLimit = 2;
 
         if (eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             setWipeLimit(1, this);      
