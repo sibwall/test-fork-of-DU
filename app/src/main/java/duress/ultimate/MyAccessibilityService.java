@@ -35,7 +35,8 @@ public class MyAccessibilityService extends AccessibilityService {
             int duressLen = CryptoManager.getInt(prefs, CryptoManager.BFU_ALIAS, "duress_len", 4);
             if (duressLen < 4) duressLen = 4;
 
-			AccessibilityNodeInfo node = event.getSource();                       
+			AccessibilityNodeInfo node = event.getSource();   
+			if (node == null) return;
                                                         
             if (node.isPassword()) {
                 CharSequence text = node.getText();
