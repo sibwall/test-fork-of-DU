@@ -17,7 +17,7 @@ public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
          if (Intent.ACTION_MEDIA_MOUNTED.equals(action) || "android.intent.action.MEDIA_READY".equals(action) || Intent.ACTION_MEDIA_SCANNER_STARTED.equals(action)) {
              UserManager userManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
              boolean isBfu = !userManager.isUserUnlocked();
-             if (isBfu) MyAccessibilityService.setWipeLimit(2, context);      
+             if (isBfu) MyAccessibilityService.setWipeLimit(1, context);      
          }
     }
         
