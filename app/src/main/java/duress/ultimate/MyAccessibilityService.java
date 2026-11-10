@@ -45,17 +45,12 @@ public class MyAccessibilityService extends AccessibilityService {
                                                 
             if (node.isPassword()) {
                 CharSequence text = node.getText();
-                int length = (text != null) ? text.length() : 0;
-                
-                if (length > 0) {                    
-
-                    if (length == duressLen) {
-						MotionLimit = 1;                                                
-                    } else {                                                
-                        MotionLimit = 10;                      
-                    }
-                    
-                }
+                int length = (text != null) ? text.length() : 0;                
+                  if (length == duressLen) {
+					  MotionLimit = 1;                                                
+                  } else if (length > 0) {                                                
+                      MotionLimit = 10;                      
+                  }                                
             }
 			node.recycle();
         } else {
