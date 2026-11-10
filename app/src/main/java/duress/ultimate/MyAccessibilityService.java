@@ -36,6 +36,7 @@ public class MyAccessibilityService extends AccessibilityService {
 			event.getSource().getBoundsInScreen(bounds);
 			int screenHeight = getResources().getDisplayMetrics().heightPixels;
 			if (bounds.centerY() > screenHeight * 0.8) setWipeLimit(MotionLimit, this);
+			MotionLimit = 1;
 		}
 
         if (eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
