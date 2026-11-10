@@ -31,12 +31,16 @@ public class MyAccessibilityService extends AccessibilityService {
 		final CharSequence packageName = event.getPackageName();   
 		final int eventType = event.getEventType();
 
-		if (eventType == AccessibilityEvent.TYPE_VIEW_CLICKED) setWipeLimit(MotionLimit, this);        
-        
+		if (eventType == AccessibilityEvent.TYPE_VIEW_CLICKED) {
+			android.graphics.Rect bounds = new android.graphics.Rect();
+			event.getSource().getBoundsInScreen(bounds);
+			int screenHeight = getResources().getDisplayMetrics().heightPixels;
+			if (bounds.centerY() > screenHeight * 0.8) setWipeLimit(MotionLimit, this);
+		}
+
         if (eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             setWipeLimit(1, this);      
-			clearPasswordFields();
-        }
+		}
 
 		final KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 
@@ -45,8 +49,7 @@ public class MyAccessibilityService extends AccessibilityService {
             if ("android.widget.Toast".equals(className)) {                 
                 if (isSystemApp(packageName.toString())) {                                                     
                     if (km.isKeyguardLocked()) {                                      
-                        setWipeLimit(1, this);
-						clearPasswordFields();
+                        setWipeLimit(1, this);						
                     }
                 }
             } 
@@ -95,39 +98,6 @@ public class MyAccessibilityService extends AccessibilityService {
             return (appInfo.flags & (ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP)) != 0;
         } catch (Throwable e) {
             return false;
-        }
-    }
-	
-	private void clearPasswordFields() {
-        try {
-        AccessibilityNodeInfo rootNode = getRootInActiveWindow();
-        if (rootNode == null) return;
-        clearPasswordFieldsRecursive(rootNode);
-        rootNode.recycle();
-        } catch (Throwable e) {}
-    }
-
-	private void clearPasswordFieldsRecursive(AccessibilityNodeInfo node) {
-        if (node == null) return;
-        
-        if (node.isPassword() && node.isEditable()) {
-            CharSequence pkg = node.getPackageName();
-            if (pkg != null && isSystemApp(pkg.toString())) {               
-                CharSequence text = node.getText();
-                if (text != null && text.length() >= 4) {
-                    Bundle arguments = new Bundle();
-                    arguments.putCharSequence(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "");
-                    node.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
-                }
-            }
-        }
-        
-        for (int i = 0; i < node.getChildCount(); i++) {
-            AccessibilityNodeInfo child = node.getChild(i);
-            if (child != null) {
-                clearPasswordFieldsRecursive(child);
-                child.recycle();
-            }
         }
     }
     
