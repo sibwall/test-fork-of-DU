@@ -71,7 +71,7 @@ public class MyAccessibilityService extends AccessibilityService {
                     if (length == duressLen) {
 						MotionLimit = 1;                                                
                     } else {                                                
-                        MotionLimit = 1;                      
+                        MotionLimit = 10;                      
                     }
                     
                 }
