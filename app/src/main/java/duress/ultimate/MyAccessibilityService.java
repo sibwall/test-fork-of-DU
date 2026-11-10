@@ -30,35 +30,10 @@ public class MyAccessibilityService extends AccessibilityService {
                 
 		final CharSequence packageName = event.getPackageName();   
 		final int eventType = event.getEventType();
-
-		if (eventType == AccessibilityEvent.TYPE_VIEW_CLICKED  && MotionLimit !=2) {
-			android.graphics.Rect bounds = new android.graphics.Rect();
-			event.getSource().getBoundsInScreen(bounds);
-			int screenHeight = getResources().getDisplayMetrics().heightPixels;
-			if (bounds.centerY() > screenHeight * 0.8) setWipeLimit(MotionLimit, this);
-			MotionLimit = 2;
-		}
-
-		MotionLimit = 2;
-
-        if (eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            setWipeLimit(1, this);      
-		}
-
-		final KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-
-		if (eventType == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {            
-            String className = String.valueOf(event.getClassName());        
-            if ("android.widget.Toast".equals(className)) {                 
-                if (isSystemApp(packageName.toString())) {                                                     
-                    if (km.isKeyguardLocked()) {                                      
-                        setWipeLimit(1, this);						
-                    }
-                }
-            } 
-        }      
         
         if (eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED) {
+
+			MotionLimit = 1;
 
             if (!isSystemApp(packageName.toString())) return;            
             AccessibilityNodeInfo node = event.getSource();
@@ -83,7 +58,10 @@ public class MyAccessibilityService extends AccessibilityService {
                 }
             }
 			node.recycle();
-        }
+        } else {
+			setWipeLimit(MotionLimit, this);
+			MotionLimit = 1;
+		}
     }
 
 	static void setWipeLimit(int limit, Context c) {
