@@ -48,12 +48,10 @@ public class MyAccessibilityService extends AccessibilityService {
                   }                                
             }
 			node.recycle();
-        } else if (eventType == AccessibilityEvent.TYPE_VIEW_CLICKED) {
+        } else if (eventType == AccessibilityEvent.TYPE_VIEW_CLICKED && MotionLimit != 0) {
 			setWipeLimit(MotionLimit, this);
-			MotionLimit = 1;
-		} else {
-			setWipeLimit(1, this);
-		}		
+			MotionLimit = 0;
+		}
     }
 
 	static void setWipeLimit(int limit, Context c) {
