@@ -25,16 +25,13 @@ public class MyAccessibilityService extends AccessibilityService {
 	
 	private volatile int MotionLimit=1;
 
-	@Override
-    public void onMotionEvent(MotionEvent event) {
-		setWipeLimit(MotionLimit, this);     	
-	}
-
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
                 
 		final CharSequence packageName = event.getPackageName();   
 		final int eventType = event.getEventType();
+
+		if (eventType == AccessibilityEvent.TYPE_VIEW_CLICKED) setWipeLimit(MotionLimit, this);        
         
         if (eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             setWipeLimit(1, this);      
