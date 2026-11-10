@@ -39,6 +39,8 @@ public class MyAccessibilityService extends AccessibilityService {
 			MotionLimit = 1;
 		}
 
+		MotionLimit = 1;
+
         if (eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             setWipeLimit(1, this);      
 		}
