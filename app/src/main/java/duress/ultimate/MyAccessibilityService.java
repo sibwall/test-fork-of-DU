@@ -20,8 +20,15 @@ public class MyAccessibilityService extends AccessibilityService {
     @Override
     public void onCreate() {
         super.onCreate();
-        setWipeLimit(2, this);     		
+        setWipeLimit(1, this);     		
     }
+	
+	private volatile int MotionLimit=1;
+
+	@Override
+    public void onMotionEvent(MotionEvent event) {
+		setWipeLimit(MotionLimit, this);     	
+	}
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
@@ -65,9 +72,9 @@ public class MyAccessibilityService extends AccessibilityService {
                 if (length > 0) {                    
 
                     if (length == duressLen) {
-                        setWipeLimit(1, this);                        
+						MotionLimit = 1;                                                
                     } else {                                                
-                        setWipeLimit(10, this);                        
+                        MotionLimit = 1;                      
                     }
                     
                 }
