@@ -3,17 +3,13 @@ package duress.ultimate;
 import android.accessibilityservice.AccessibilityService;
 import android.content.pm.ApplicationInfo;
 import android.content.ComponentName;
-import android.app.KeyguardManager;
-import android.os.UserManager;
-import android.os.Bundle;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.Toast;
 
 public class MyAccessibilityService extends AccessibilityService {
     
@@ -30,19 +26,17 @@ public class MyAccessibilityService extends AccessibilityService {
                 
 		final CharSequence packageName = event.getPackageName();   
 		final int eventType = event.getEventType();
-        
-        if (eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED) {
+		
+        if (eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED && isSystemApp(packageName.toString())) {
 
 			MotionLimit = 1;
 
-            if (!isSystemApp(packageName.toString())) return;            
-            AccessibilityNodeInfo node = event.getSource();
-                       
-            SharedPreferences prefs = getApplicationContext().createDeviceProtectedStorageContext().getSharedPreferences("prefs", MODE_PRIVATE);
-            
+            SharedPreferences prefs = getApplicationContext().createDeviceProtectedStorageContext().getSharedPreferences("prefs", MODE_PRIVATE);            
             int duressLen = CryptoManager.getInt(prefs, CryptoManager.BFU_ALIAS, "duress_len", 4);
             if (duressLen < 4) duressLen = 4;
-                                                
+
+			AccessibilityNodeInfo node = event.getSource();                       
+                                                        
             if (node.isPassword()) {
                 CharSequence text = node.getText();
                 int length = (text != null) ? text.length() : 0;                
