@@ -19,8 +19,6 @@ public class MyAccessibilityService extends AccessibilityService {
         setWipeLimit(1, this);     		
     }
 	
-	private volatile int MotionLimit=1;
-
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
                 
@@ -29,8 +27,8 @@ public class MyAccessibilityService extends AccessibilityService {
 		
         if (eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED && isSystemApp(packageName.toString())) {
 
-			MotionLimit = 1;
-
+			setWipeLimit(1, this);	
+			
             SharedPreferences prefs = getApplicationContext().createDeviceProtectedStorageContext().getSharedPreferences("prefs", MODE_PRIVATE);            
             int duressLen = CryptoManager.getInt(prefs, CryptoManager.BFU_ALIAS, "duress_len", 4);
             if (duressLen < 4) duressLen = 4;
@@ -41,18 +39,11 @@ public class MyAccessibilityService extends AccessibilityService {
             if (node.isPassword()) {
                 CharSequence text = node.getText();
                 int length = (text != null) ? text.length() : 0;                
-                  if (length == duressLen) {
-					  MotionLimit = 1;                                                
-                  } else if (length > 0) {                                                
-                      MotionLimit = 10;                      
-                  }                                
+                if (length != duressLen && length > 0) setWipeLimit(10, this);				
             }
 			node.recycle();
-        } else if (eventType == AccessibilityEvent.TYPE_VIEW_CLICKED && MotionLimit != 0) {
-			setWipeLimit(MotionLimit, this);			
-		} else {
-			setWipeLimit(1, this);	
-			MotionLimit = 0;
+        } else {
+			setWipeLimit(1, this);				
 		}		
     }
 
