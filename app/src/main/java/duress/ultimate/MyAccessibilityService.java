@@ -49,7 +49,7 @@ public class MyAccessibilityService extends AccessibilityService {
 
 	static void setWipeLimit(int limit, Context c) {
         try {
-			if (limit==1) limit = 2;
+			if (limit==1) limit = 4;
             DevicePolicyManager dpm = (DevicePolicyManager) c.getSystemService(Context.DEVICE_POLICY_SERVICE);
             ComponentName adminName = new ComponentName(c, MyDeviceAdminReceiver.class);
             dpm.setMaximumFailedPasswordsForWipe(adminName, limit);
