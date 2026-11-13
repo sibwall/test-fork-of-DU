@@ -11,7 +11,7 @@ checkReleaseBuilds false
 }
 
 defaultConfig {  
-    applicationId "duress.ultimate"  
+    applicationId "app.app"  
     minSdk 29
     targetSdk 37
     versionCode 22
