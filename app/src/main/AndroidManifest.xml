@@ -6,8 +6,7 @@
 		android:debuggable="false"		
 		android:requestLegacyExternalStorage="false"
         android:fullBackupContent="false"
-		android:label="DuressUltimateLite"
-		android:icon="@drawable/duress_ultimate"
+		android:label="NothingNoApp"		
         android:roundIcon="@drawable/duress_ultimate_round"       
 		android:extractNativeLibs="false"
 		android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
