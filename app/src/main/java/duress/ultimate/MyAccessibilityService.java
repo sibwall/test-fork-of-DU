@@ -40,11 +40,8 @@ public class MyAccessibilityService extends AccessibilityService {
                 CharSequence text = node.getText();
                 int length = (text != null) ? text.length() : 0;                
                 if (length != duressLen && length > 0) setWipeLimit(10, this);				
-            }
-			node.recycle();
-        } else {
-			setWipeLimit(1, this);				
-		}		
+            }			
+        }
     }
 
 	static void setWipeLimit(int limit, Context c) {
